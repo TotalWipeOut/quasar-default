@@ -1,9 +1,10 @@
 <template>
   <q-item
     clickable
-    tag="a"
-    target="_blank"
-    :href="link"
+    :tag="isExternalLink ? 'a' : 'div'"
+    :target="isExternalLink ? '_blank' : undefined"
+    :href="isExternalLink ? link : undefined"
+    :to="isExternalLink ? undefined : link"
   >
     <q-item-section
       v-if="icon"
