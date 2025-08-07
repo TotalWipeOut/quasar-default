@@ -6,10 +6,7 @@
     :href="isExternalLink ? link : undefined"
     :to="isExternalLink ? undefined : link"
   >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+    <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
 
@@ -28,7 +25,7 @@ export interface EssentialLinkProps {
   caption?: string;
   link?: string;
   icon?: string;
-};
+}
 
 const props = withDefaults(defineProps<EssentialLinkProps>(), {
   caption: '',

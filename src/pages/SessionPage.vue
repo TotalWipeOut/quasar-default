@@ -2,18 +2,18 @@
   <q-page class="session-page">
     <div class="page-container">
       <h2 class="page-title">Session Information</h2>
-      
+
       <div class="controls">
-        <q-btn 
-          color="primary" 
+        <q-btn
+          color="primary"
           @click="fetchSessionInfo"
           :loading="loading"
           label="Fetch Session Info"
           class="fetch-button"
         />
-        <q-btn 
-          v-if="error" 
-          color="secondary" 
+        <q-btn
+          v-if="error"
+          color="secondary"
           @click="retry"
           :loading="loading"
           label="Retry"
@@ -78,7 +78,9 @@ const fetchSessionInfo = async () => {
     sessionData.value = response.data;
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'response' in err) {
-      const axiosError = err as { response: { status: number; data?: { message?: string }; statusText: string } };
+      const axiosError = err as {
+        response: { status: number; data?: { message?: string }; statusText: string };
+      };
       error.value = `HTTP ${axiosError.response.status}: ${axiosError.response.data?.message || axiosError.response.statusText}`;
     } else if (err && typeof err === 'object' && 'request' in err) {
       error.value = 'Network error: Unable to reach the server';
