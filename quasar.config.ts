@@ -4,6 +4,50 @@
 import { defineConfig } from '#q-app/wrappers';
 import { fileURLToPath } from 'node:url';
 
+let host = 'localhost';
+if (process.env.HOST) {
+  host = process.env.HOST;
+}
+
+const mockApiPort = process.env.MOCK_API_PORT || 3000;
+// Proxy API requests to the mock server
+// This is useful for development with a mock API server
+const proxy = {
+  '/api': {
+    target: `http://${host}:${mockApiPort}`,
+    changeOrigin: true,
+    secure: false,
+    ws: true,
+    logLevel: 'debug',
+    headers: {
+      'X-Forwarded-Host': host,
+      'X-Forwarded-Proto': 'http',
+    },
+  },
+  '/campaigns/api': {
+    target: `http://${host}:${mockApiPort}`,
+    changeOrigin: true,
+    secure: false,
+    ws: true,
+    logLevel: 'debug',
+    headers: {
+      'X-Forwarded-Host': host,
+      'X-Forwarded-Proto': 'http',
+    },
+  },
+  '/campaigns/export-data': {
+    target: `http://${host}:${mockApiPort}`,
+    changeOrigin: true,
+    secure: false,
+    ws: true,
+    logLevel: 'debug',
+    headers: {
+      'X-Forwarded-Host': host,
+      'X-Forwarded-Proto': 'http',
+    },
+  },
+};
+
 export default defineConfig((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -97,6 +141,7 @@ export default defineConfig((ctx) => {
     devServer: {
       // https: true,
       port: 8189,
+      proxy,
       open: true // opens browser window automatically
     },
 
