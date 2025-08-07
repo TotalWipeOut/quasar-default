@@ -56,7 +56,11 @@
 import { ref, computed, onMounted } from 'vue';
 import { api } from 'boot/axios';
 
-const sessionData = ref<any>(null);
+interface SessionData {
+  [key: string]: unknown;
+}
+
+const sessionData = ref<SessionData | null>(null);
 const loading = ref(false);
 const error = ref<string | null>(null);
 
@@ -72,13 +76,15 @@ const fetchSessionInfo = async () => {
   try {
     const response = await api.get('/api/session/info');
     sessionData.value = response.data;
-  } catch (err: any) {
-    if (err.response) {
-      error.value = `HTTP ${err.response.status}: ${err.response.data?.message || err.response.statusText}`;
-    } else if (err.request) {
+  } catch (err: unknown) {
+    if (err && typeof err === 'object' && 'response' in err) {
+      const axiosError = err as { response: { status: number; data?: { message?: string }; statusText: string } };
+      error.value = `HTTP ${axiosError.response.status}: ${axiosError.response.data?.message || axiosError.response.statusText}`;
+    } else if (err && typeof err === 'object' && 'request' in err) {
       error.value = 'Network error: Unable to reach the server';
     } else {
-      error.value = `Request error: ${err.message}`;
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+      error.value = `Request error: ${errorMessage}`;
     }
   } finally {
     loading.value = false;
@@ -86,11 +92,11 @@ const fetchSessionInfo = async () => {
 };
 
 const retry = () => {
-  fetchSessionInfo();
+  void fetchSessionInfo();
 };
 
 onMounted(() => {
-  fetchSessionInfo();
+  void fetchSessionInfo();
 });
 </script>
 
