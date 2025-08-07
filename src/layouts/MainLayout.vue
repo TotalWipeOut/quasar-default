@@ -51,6 +51,12 @@ import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink
 
 const linksList: EssentialLinkProps[] = [
   {
+    title: 'Session Info',
+    caption: 'View session details',
+    icon: 'account_circle',
+    link: '/session'
+  },
+  {
     title: 'Docs',
     caption: 'quasar.dev',
     icon: 'school',
