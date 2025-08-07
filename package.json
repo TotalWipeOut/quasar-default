@@ -2,7 +2,7 @@
   "name": "quasar-default",
   "version": "0.0.1",
   "description": "A default installation",
-  "productName": "Quasar Default Test Project",
+  "productName": "Quasar Default Test Project",
   "author": "Kevin Hamilton <kevin@eagleeye.com>",
   "type": "module",
   "private": true,
