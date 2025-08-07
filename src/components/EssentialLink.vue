@@ -21,6 +21,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 export interface EssentialLinkProps {
   title: string;
   caption?: string;
@@ -28,9 +30,13 @@ export interface EssentialLinkProps {
   icon?: string;
 };
 
-withDefaults(defineProps<EssentialLinkProps>(), {
+const props = withDefaults(defineProps<EssentialLinkProps>(), {
   caption: '',
   link: '#',
   icon: '',
+});
+
+const isExternalLink = computed(() => {
+  return props.link?.startsWith('http') || props.link === '#';
 });
 </script>
