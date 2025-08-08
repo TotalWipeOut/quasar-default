@@ -24,7 +24,9 @@ const QuasarMock = {
     // Mock Quasar components
     app.component('QBtn', { template: '<button @click="$emit(\'click\')"><slot /></button>' });
     app.component('QList', { template: '<div class="q-list"><slot /></div>' });
-    app.component('QItem', { template: '<div class="q-item" @click.stop="$emit(\'click\')"><slot /></div>' });
+    app.component('QItem', {
+      template: '<div class="q-item" @click.stop="$emit(\'click\')"><slot /></div>',
+    });
     app.component('QItemSection', { template: '<div><slot /></div>' });
     app.component('QLayout', { template: '<div><slot /></div>' });
     app.component('QHeader', { template: '<header><slot /></header>' });
