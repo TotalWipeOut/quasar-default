@@ -1,13 +1,14 @@
 import { defineBoot } from '#q-app/wrappers';
-import { defaultConfig, plugin, DefaultConfigOptions } from '@formkit/vue'
-import { FormKitNode } from '@formkit/core'
+import type { DefaultConfigOptions } from '@formkit/vue';
+import { defaultConfig, plugin } from '@formkit/vue'
+import type { FormKitNode } from '@formkit/core'
 import { ref, watch } from 'vue';
 
 function addHandlers(node: FormKitNode) {
   node.on('created', () => {
     if (node.context) {
       node.context.handlers.onModelUpdate = (value: unknown) => {
-        node.input(value);
+        void node.input(value);
       }
 
       node.context.handlers.onChangeName = (value: string) => {
