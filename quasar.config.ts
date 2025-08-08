@@ -3,50 +3,57 @@
 
 import { defineConfig } from '#q-app/wrappers';
 import { fileURLToPath } from 'node:url';
+import type { DevServerOptions } from '@quasar/app-vite/types/configuration/conf';
 
 let host = 'localhost';
 if (process.env.HOST) {
   host = process.env.HOST;
 }
 
-const mockApiPort = process.env.MOCK_API_PORT || 3000;
-// Proxy API requests to the mock server
-// This is useful for development with a mock API server
-const proxy = {
-  '/api': {
-    target: `http://${host}:${mockApiPort}`,
-    changeOrigin: true,
-    secure: false,
-    ws: true,
-    logLevel: 'debug',
-    headers: {
-      'X-Forwarded-Host': host,
-      'X-Forwarded-Proto': 'http',
+let proxy: DevServerOptions['proxy'];
+if (process.env.MOCK_API && process.env.MOCK_API === 'proxy') {
+  const mockApiPort = process.env.MOCK_API_PORT || 3000;
+  host = 'localhost';
+  const proto = process.env.MOCK_API_PROTO || 'http';
+  const target = `${proto}://${host}:${mockApiPort}`
+  // Proxy API requests to the mock server
+  // This is useful for development with a mock API server
+  proxy = {
+    '/api': {
+      target,
+      changeOrigin: true,
+      secure: false,
+      ws: true,
+      logLevel: 'debug',
+      headers: {
+        'X-Forwarded-Host': host,
+        'X-Forwarded-Proto': proto,
+      },
     },
-  },
-  '/campaigns/api': {
-    target: `http://${host}:${mockApiPort}`,
-    changeOrigin: true,
-    secure: false,
-    ws: true,
-    logLevel: 'debug',
-    headers: {
-      'X-Forwarded-Host': host,
-      'X-Forwarded-Proto': 'http',
+    '/campaigns/api': {
+      target,
+      changeOrigin: true,
+      secure: false,
+      ws: true,
+      logLevel: 'debug',
+      headers: {
+        'X-Forwarded-Host': host,
+        'X-Forwarded-Proto': proto,
+      },
     },
-  },
-  '/campaigns/export-data': {
-    target: `http://${host}:${mockApiPort}`,
-    changeOrigin: true,
-    secure: false,
-    ws: true,
-    logLevel: 'debug',
-    headers: {
-      'X-Forwarded-Host': host,
-      'X-Forwarded-Proto': 'http',
+    '/campaigns/export-data': {
+      target,
+      changeOrigin: true,
+      secure: false,
+      ws: true,
+      logLevel: 'debug',
+      headers: {
+        'X-Forwarded-Host': host,
+        'X-Forwarded-Proto': proto,
+      },
     },
-  },
-};
+  };
+}
 
 export default defineConfig((ctx) => {
   return {
