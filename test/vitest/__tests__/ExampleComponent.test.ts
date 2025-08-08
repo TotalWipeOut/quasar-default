@@ -25,11 +25,11 @@ describe('example Component', () => {
     expect(items).toHaveLength(2);
 
     // Click the first item - in the current setup this increments by 2
-    await items[0].trigger('click');
+    await items[0]!.trigger('click');
     expect(wrapper.vm.clickCount).toBe(2);
 
     // Click a second item to ensure it increments by 2 again
-    await items[1].trigger('click');
+    await items[1]!.trigger('click');
     expect(wrapper.vm.clickCount).toBe(4);
   });
 
