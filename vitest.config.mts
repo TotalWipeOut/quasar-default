@@ -16,6 +16,7 @@ export default defineConfig({
     ],
   },
   plugins: [
+    // @ts-expect-error Type issue with Quasar Vite plugin
     vue({
       template: { transformAssetUrls },
     }),
