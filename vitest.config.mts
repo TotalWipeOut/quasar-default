@@ -12,6 +12,21 @@ export default defineConfig({
       'src/**/*.vitest.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
       'test/vitest/__tests__/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
     ],
+    globals: true,
+    environmentOptions: {
+      happyDOM: {
+        url: 'http://localhost:3000',
+        width: 1024,
+        height: 768,
+      },
+    },
+  },
+  define: {
+    __QUASAR_VERSION__: JSON.stringify('2.16.0'),
+    __QUASAR_SSR__: false,
+    __QUASAR_SSR_SERVER__: false,
+    __QUASAR_SSR_CLIENT__: false,
+    __QUASAR_SSR_PWA__: false,
   },
   // @ts-ignore - Vue plugin compatibility issue with Vitest's bundled Vite
   plugins: [vue()],
