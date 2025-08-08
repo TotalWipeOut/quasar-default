@@ -24,6 +24,7 @@ export default defineConfig({
     quasar({
       sassVariables: 'src/quasar-variables.scss',
     }),
+    // @ts-expect-error Type issue with Quasar Vite plugin
     tsconfigPaths(),
   ],
 });
