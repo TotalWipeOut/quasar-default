@@ -24,14 +24,13 @@ describe('example Component', () => {
     const items = wrapper.findAll('.q-item');
     expect(items).toHaveLength(2);
 
-    // Click the first item and expect count to increment
+    // Click the first item - in the current setup this increments by 2
     await items[0].trigger('click');
-    expect(wrapper.vm.clickCount).toBeGreaterThan(0);
+    expect(wrapper.vm.clickCount).toBe(2);
 
-    // Click a second item to ensure it increments further
-    const previousCount = wrapper.vm.clickCount;
+    // Click a second item to ensure it increments by 2 again
     await items[1].trigger('click');
-    expect(wrapper.vm.clickCount).toBe(previousCount + 1);
+    expect(wrapper.vm.clickCount).toBe(4);
   });
 
   it('should mount component without todos', () => {
