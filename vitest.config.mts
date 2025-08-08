@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,8 @@ export default defineConfig({
       'test/vitest/__tests__/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
     ],
   },
+  // @ts-ignore - Vue plugin compatibility issue with Vitest's bundled Vite
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': new URL('./src', import.meta.url).pathname,
