@@ -1,24 +1,32 @@
 // This file will be run before each test file
-import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest';
-import { Notify } from 'quasar';
+import { config } from '@vue/test-utils';
+import { createApp } from 'vue';
 
-// Mock browser globals that Quasar expects
-Object.defineProperty(global, 'navigator', {
-  value: {
-    userAgent: 'node.js',
-    platform: 'node',
+// Create minimal Quasar setup for testing
+const QuasarMock = {
+  install(app: any) {
+    app.config.globalProperties.$q = {
+      notify: vi.fn(),
+      loading: {
+        show: vi.fn(),
+        hide: vi.fn(),
+      },
+    };
+
+    // Mock Quasar components
+    app.component('QBtn', { template: '<button><slot /></button>' });
+    app.component('QList', { template: '<div class="q-list"><slot /></div>' });
+    app.component('QItem', { template: '<div class="q-item" @click="$emit(\'click\')"><slot /></div>' });
+    app.component('QItemSection', { template: '<div><slot /></div>' });
+    app.component('QLayout', { template: '<div><slot /></div>' });
+    app.component('QHeader', { template: '<header><slot /></header>' });
+    app.component('QToolbar', { template: '<div><slot /></div>' });
+    app.component('QToolbarTitle', { template: '<div><slot /></div>' });
+    app.component('QDrawer', { template: '<aside><slot /></aside>' });
+    app.component('QPageContainer', { template: '<div><slot /></div>' });
+    app.component('QPage', { template: '<main><slot /></main>' });
   },
-  writable: true,
-});
+};
 
-Object.defineProperty(global, 'document', {
-  value: globalThis.document || {},
-  writable: true,
-});
-
-Object.defineProperty(global, 'window', {
-  value: globalThis.window || global,
-  writable: true,
-});
-
-installQuasarPlugin({ plugins: { Notify } });
+// Configure Vue Test Utils to use our mock Quasar
+config.global.plugins = [QuasarMock];
