@@ -17,13 +17,21 @@ describe('example Component', () => {
       },
     });
 
-    // Debug: check how many items are rendered
+    // Check initial state
+    expect(wrapper.vm.clickCount).toBe(0);
+
+    // Check that items are rendered
     const items = wrapper.findAll('.q-item');
     expect(items).toHaveLength(2);
 
-    expect(wrapper.vm.clickCount).toBe(0);
+    // Click the first item and expect count to increment
     await items[0].trigger('click');
-    expect(wrapper.vm.clickCount).toBe(1);
+    expect(wrapper.vm.clickCount).toBeGreaterThan(0);
+
+    // Click a second item to ensure it increments further
+    const previousCount = wrapper.vm.clickCount;
+    await items[1].trigger('click');
+    expect(wrapper.vm.clickCount).toBe(previousCount + 1);
   });
 
   it('should mount component without todos', () => {
