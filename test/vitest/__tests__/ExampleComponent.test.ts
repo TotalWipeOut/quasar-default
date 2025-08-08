@@ -16,8 +16,13 @@ describe('example Component', () => {
         ],
       },
     });
+
+    // Debug: check how many items are rendered
+    const items = wrapper.findAll('.q-item');
+    expect(items).toHaveLength(2);
+
     expect(wrapper.vm.clickCount).toBe(0);
-    await wrapper.find('.q-item').trigger('click');
+    await items[0].trigger('click');
     expect(wrapper.vm.clickCount).toBe(1);
   });
 
