@@ -140,8 +140,7 @@ export default defineConfig((ctx) => {
     devServer: {
       // https: true,
       port: 8189,
-      proxy: process.env.MOCK_API === 'proxy' ? proxy : undefined,
-      open: true // opens browser window automatically
+      proxy: process.env.MOCK_API === 'proxy' ? proxy : {},
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
