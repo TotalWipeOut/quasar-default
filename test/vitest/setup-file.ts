@@ -1,6 +1,7 @@
 // This file will be run before each test file
 import { config } from '@vue/test-utils';
 import { createApp } from 'vue';
+import { vi } from 'vitest';
 
 // Create minimal Quasar setup for testing
 const QuasarMock = {
