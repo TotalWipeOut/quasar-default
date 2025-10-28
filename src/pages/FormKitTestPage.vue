@@ -106,6 +106,7 @@ const formSchema: FormKitSchemaNode[] = [
             children: [
               {
                 $formkit: 'group',
+                name: 'location',
                 value: emptyLocationEntry(),
                 classes: {
                   outer: 'location-entry-group',
