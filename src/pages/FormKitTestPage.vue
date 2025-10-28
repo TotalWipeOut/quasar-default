@@ -104,7 +104,7 @@ const handleSubmit = (data: unknown) => {
   font-weight: 500;
 }
 
-:deep(.formkit-outer[data-type="list"]) {
+:deep(.formkit-outer[data-type='list']) {
   margin-bottom: 20px;
 }
 
