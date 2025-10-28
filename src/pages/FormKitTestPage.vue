@@ -109,6 +109,24 @@ const handleSubmit = (data: unknown) => {
   font-weight: 500;
 }
 
+:deep(.formkit-outer[data-type="list"]) {
+  margin-bottom: 20px;
+}
+
+:deep(.formkit-item) {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+:deep(.formkit-item .formkit-inner) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
