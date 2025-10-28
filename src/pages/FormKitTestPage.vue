@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { FormKitSchemaNode } from '@formkit/vue';
+import type { FormKitSchemaNode } from '@formkit/core';
 
 type LocationEntry = {
   redemptionPartner: string;
@@ -45,40 +45,52 @@ const emptyLocationEntry = (): LocationEntry => ({
 });
 
 const formValues = ref({
-  locations: [emptyLocationEntry()],
+  qualification: {
+    locations: {
+      locations: [emptyLocationEntry()],
+    },
+  },
 });
 
 const formSchema: FormKitSchemaNode[] = [
   {
-    $formkit: 'form',
-    name: 'locationForm',
-    props: {
-      id: 'formkit-test-form',
-      actions: false,
-    },
+    $formkit: 'group',
+    name: 'qualification',
     children: [
       {
-        $el: 'div',
-        attrs: {
-          class: 'location-list-toolbar',
-        },
-        children: 'Location Entries',
-      },
-      {
-        $formkit: 'list',
+        $formkit: 'group',
         name: 'locations',
-        dynamic: true,
-        addLabel: 'Add location row',
-        value: [emptyLocationEntry()],
+        id: 'form-input-qualification-locations',
+        label: 'Do you want to include or exclude any locations from this offer?',
+        help: 'Add as many partner location configurations as needed.',
+        useFieldsetStatus: true,
+        classes: {
+          outer: 'locations-fieldset-outer',
+          inner: 'locations-fieldset-inner',
+          label: 'locations-fieldset-label',
+          help: 'locations-fieldset-help',
+        },
         children: [
           {
-            $formkit: 'group',
-            name: 'locationRow',
-            children: [
+            $formkit: 'list',
+            name: 'locations',
+            dynamic: true,
+            addLabel: 'Add location row',
+            value: [emptyLocationEntry()],
+            classes: {
+              outer: 'location-list-outer',
+              list: 'location-list',
+              item: 'location-list-item',
+              add: 'location-list-add',
+              remove: 'location-list-remove',
+            },
+            items: [
               {
-                $el: 'div',
-                attrs: {
-                  class: 'location-entry-row',
+                $formkit: 'group',
+                value: emptyLocationEntry(),
+                classes: {
+                  outer: 'location-entry-group',
+                  inner: 'location-entry-inner',
                 },
                 children: [
                   {
@@ -180,16 +192,23 @@ const formSchema: FormKitSchemaNode[] = [
   gap: 16px;
 }
 
-.location-list-toolbar {
+.locations-fieldset-label {
   font-weight: 600;
-  margin-bottom: 12px;
 }
 
-.location-entry-row {
+.locations-fieldset-help {
+  margin-top: 4px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.location-entry-group {
+  padding: 8px 0;
+}
+
+.location-entry-inner {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 8px 0;
 }
 
 .location-field {
