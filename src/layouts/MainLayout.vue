@@ -36,6 +36,12 @@ const linksList: EssentialLinkProps[] = [
     link: '/session',
   },
   {
+    title: 'FormKit Test',
+    caption: 'Test FormKit forms',
+    icon: 'dynamic_form',
+    link: '/formkit-test',
+  },
+  {
     title: 'Docs',
     caption: 'quasar.dev',
     icon: 'school',
