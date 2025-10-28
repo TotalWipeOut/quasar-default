@@ -214,6 +214,11 @@ const formSchema: FormKitSchemaNode[] = [
   gap: 16px;
 }
 
+.formkit-error-message {
+  color: #c10015;
+  font-weight: 600;
+}
+
 .locations-fieldset-label {
   font-weight: 600;
 }
