@@ -5,17 +5,13 @@
         <q-card-section class="formkit-card-header">
           <h1 class="formkit-card-title">FormKit Test</h1>
           <p class="formkit-card-subtitle">
-            Manage inclusion and exclusion locations. Use the add button to create additional rows for different partners.
+            Manage inclusion and exclusion locations. Use the add button to create additional rows
+            for different partners.
           </p>
         </q-card-section>
         <q-separator />
         <q-card-section class="formkit-card-body">
-          <FormKit
-            type="form"
-            v-model="formValues"
-            :actions="false"
-            class="locations-form"
-          >
+          <FormKit type="form" v-model="formValues" :actions="false" class="locations-form">
             <FormKitSchema :schema="formSchema" />
           </FormKit>
         </q-card-section>
