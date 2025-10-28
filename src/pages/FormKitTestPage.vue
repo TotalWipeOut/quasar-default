@@ -91,9 +91,11 @@ const formSchema: FormKitSchemaNode[] = [
           {
             $formkit: 'list',
             name: 'locations',
-            formPath: 'qualification.locations.locations',
             dynamic: true,
             addLabel: 'Add location row',
+            value: [
+              emptyLocationEntry(),
+            ],
             classes: {
               outer: 'location-list-outer',
               list: 'location-list',
