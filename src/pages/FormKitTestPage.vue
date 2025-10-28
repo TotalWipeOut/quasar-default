@@ -49,34 +49,39 @@ const formSchema = [
     dynamic: true,
     children: [
       {
-        $formkit: 'text',
-        name: 'redemptionPartner',
-        label: 'Redemption Partner',
-        outerClass: 'q-pa-sm el-redemptionPartner',
-      },
-      {
-        $formkit: 'text',
-        name: 'includedLocations',
-        label: 'Included Locations',
-        outerClass: 'q-pa-sm el-includedLocations',
-      },
-      {
-        $formkit: 'text',
-        name: 'excludedLocations',
-        label: 'Excluded Locations',
-        outerClass: 'q-pa-sm el-excludedLocations',
-      },
-      {
-        $formkit: 'text',
-        name: 'includedLocationTags',
-        label: 'Included Location Tags',
-        outerClass: 'q-pa-sm el-includedLocationTags',
-      },
-      {
-        $formkit: 'text',
-        name: 'excludedLocationTags',
-        label: 'Excluded Location Tags',
-        outerClass: 'q-pa-sm el-excludedLocationTags',
+        $formkit: 'group',
+        children: [
+          {
+            $formkit: 'text',
+            name: 'redemptionPartner',
+            label: 'Redemption Partner',
+            outerClass: 'q-pa-sm el-redemptionPartner',
+          },
+          {
+            $formkit: 'text',
+            name: 'includedLocations',
+            label: 'Included Locations',
+            outerClass: 'q-pa-sm el-includedLocations',
+          },
+          {
+            $formkit: 'text',
+            name: 'excludedLocations',
+            label: 'Excluded Locations',
+            outerClass: 'q-pa-sm el-excludedLocations',
+          },
+          {
+            $formkit: 'text',
+            name: 'includedLocationTags',
+            label: 'Included Location Tags',
+            outerClass: 'q-pa-sm el-includedLocationTags',
+          },
+          {
+            $formkit: 'text',
+            name: 'excludedLocationTags',
+            label: 'Excluded Location Tags',
+            outerClass: 'q-pa-sm el-excludedLocationTags',
+          },
+        ],
       },
     ],
   },
