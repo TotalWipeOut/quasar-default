@@ -102,6 +102,13 @@ const handleSubmit = (data: unknown) => {
   padding: 20px;
 }
 
+:deep(.form-section-title) {
+  color: var(--q-primary);
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
