@@ -10,7 +10,11 @@
         </q-card-section>
         <q-separator />
         <q-card-section class="formkit-card-body">
+          <div v-if="renderError" class="formkit-error-message">
+            {{ renderError }}
+          </div>
           <FormKit
+            v-else
             type="form"
             v-model="formValues"
             :actions="false"
@@ -25,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onErrorCaptured, ref } from 'vue';
 import type { FormKitSchemaNode } from '@formkit/core';
 
 type LocationEntry = {
@@ -42,6 +46,17 @@ const emptyLocationEntry = (): LocationEntry => ({
   excludedLocations: '',
   includedLocationTags: '',
   excludedLocationTags: '',
+});
+
+const renderError = ref<string | null>(null);
+
+onErrorCaptured((error) => {
+  if (error instanceof Error) {
+    renderError.value = error.message;
+  } else {
+    renderError.value = String(error);
+  }
+  return false;
 });
 
 const formValues = ref({
