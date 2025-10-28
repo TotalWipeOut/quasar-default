@@ -52,7 +52,7 @@ const renderError = ref<string | null>(null);
 
 onErrorCaptured((error) => {
   if (error instanceof Error) {
-    renderError.value = error.message;
+    renderError.value = `${error.message}\n${error.stack ?? ''}`;
   } else {
     renderError.value = String(error);
   }
