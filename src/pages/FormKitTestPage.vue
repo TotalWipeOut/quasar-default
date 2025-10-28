@@ -37,7 +37,7 @@ import { ref, computed } from 'vue';
 import { FormKit, FormKitSchema } from '@formkit/vue';
 
 const formData = ref({});
-const submittedData = ref(null);
+const submittedData = ref<unknown>(null as unknown);
 
 const formSchema = [
   {
