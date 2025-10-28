@@ -100,12 +100,6 @@ const formSchema = [
                 $formkit: 'text',
                 label: 'Excluded Location Tags',
               },
-              {
-                type: 'button',
-                name: 'add',
-                $formkit: 'button',
-                label: 'Add',
-              },
             ],
           },
         ],
