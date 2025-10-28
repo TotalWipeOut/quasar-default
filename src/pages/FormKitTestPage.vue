@@ -2,18 +2,13 @@
   <q-page class="formkit-test-page">
     <div class="page-container">
       <h2 class="page-title">FormKit Test</h2>
-      
+
       <div class="form-container">
         <FormKit type="form" :actions="false" @submit="handleSubmit">
           <FormKitSchema :schema="formSchema" :data="formData" />
-          
+
           <div class="submit-section">
-            <q-btn 
-              type="submit" 
-              color="primary" 
-              label="Submit Form"
-              class="submit-button"
-            />
+            <q-btn type="submit" color="primary" label="Submit Form" class="submit-button" />
           </div>
         </FormKit>
 
