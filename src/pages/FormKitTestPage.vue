@@ -10,11 +10,7 @@
         </q-card-section>
         <q-separator />
         <q-card-section class="formkit-card-body">
-          <div v-if="renderError" class="formkit-error-message">
-            {{ renderError }}
-          </div>
           <FormKit
-            v-else
             type="form"
             v-model="formValues"
             :actions="false"
@@ -29,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref } from 'vue';
-import type { FormKitSchemaNode } from '@formkit/core';
+import { ref } from 'vue';
+import type { FormKitSchemaNode } from '@formkit/vue';
 
 type LocationEntry = {
   redemptionPartner: string;
@@ -48,74 +44,45 @@ const emptyLocationEntry = (): LocationEntry => ({
   excludedLocationTags: '',
 });
 
-const renderError = ref<string | null>(null);
-
-onErrorCaptured((error) => {
-  if (error instanceof Error) {
-    renderError.value = `${error.message}\n${error.stack ?? ''}`;
-  } else {
-    renderError.value = String(error);
-  }
-  return false;
-});
-
 const formValues = ref({
-  qualification: {
-    locations: {
-      locations: [
-        emptyLocationEntry(),
-      ],
-    },
-  },
+  locations: [emptyLocationEntry()],
 });
 
 const formSchema: FormKitSchemaNode[] = [
   {
-    $formkit: 'group',
-    name: 'qualification',
+    $formkit: 'form',
+    name: 'locationForm',
+    props: {
+      id: 'formkit-test-form',
+      actions: false,
+    },
     children: [
       {
-        $formkit: 'group',
-        name: 'locations',
-        id: 'form-input-qualification-locations',
-        label: 'Do you want to include or exclude any locations from this offer?',
-        help: 'Add as many partner location configurations as needed.',
-        useFieldsetStatus: true,
-        classes: {
-          outer: 'locations-fieldset-outer',
-          inner: 'locations-fieldset-inner',
-          label: 'locations-fieldset-label',
-          help: 'locations-fieldset-help',
+        $el: 'div',
+        attrs: {
+          class: 'location-list-toolbar',
         },
+        children: 'Location Entries',
+      },
+      {
+        $formkit: 'list',
+        name: 'locations',
+        dynamic: true,
+        addLabel: 'Add location row',
+        value: [emptyLocationEntry()],
         children: [
           {
-            $formkit: 'list',
-            name: 'locations',
-            dynamic: true,
-            addLabel: 'Add location row',
-            value: [
-              emptyLocationEntry(),
-            ],
-            classes: {
-              outer: 'location-list-outer',
-              list: 'location-list',
-              item: 'location-list-item',
-              add: 'location-list-add',
-              remove: 'location-list-remove',
-            },
+            $formkit: 'group',
+            name: 'locationRow',
             children: [
               {
-                $formkit: 'group',
-                name: 'location',
-                value: emptyLocationEntry(),
-                classes: {
-                  outer: 'location-entry-group',
-                  inner: 'location-entry-inner',
+                $el: 'div',
+                attrs: {
+                  class: 'location-entry-row',
                 },
                 children: [
                   {
                     $formkit: 'text',
-                    type: 'text',
                     name: 'redemptionPartner',
                     label: 'Redemption Partner',
                     classes: {
@@ -126,7 +93,6 @@ const formSchema: FormKitSchemaNode[] = [
                   },
                   {
                     $formkit: 'text',
-                    type: 'text',
                     name: 'includedLocations',
                     label: 'Included Locations',
                     classes: {
@@ -137,7 +103,6 @@ const formSchema: FormKitSchemaNode[] = [
                   },
                   {
                     $formkit: 'text',
-                    type: 'text',
                     name: 'excludedLocations',
                     label: 'Excluded Locations',
                     classes: {
@@ -148,7 +113,6 @@ const formSchema: FormKitSchemaNode[] = [
                   },
                   {
                     $formkit: 'text',
-                    type: 'text',
                     name: 'includedLocationTags',
                     label: 'Included Location Tags',
                     classes: {
@@ -159,7 +123,6 @@ const formSchema: FormKitSchemaNode[] = [
                   },
                   {
                     $formkit: 'text',
-                    type: 'text',
                     name: 'excludedLocationTags',
                     label: 'Excluded Location Tags',
                     classes: {
@@ -217,28 +180,16 @@ const formSchema: FormKitSchemaNode[] = [
   gap: 16px;
 }
 
-.formkit-error-message {
-  color: #c10015;
+.location-list-toolbar {
   font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.locations-fieldset-label {
-  font-weight: 600;
-}
-
-.locations-fieldset-help {
-  margin-top: 4px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.location-entry-group {
-  padding: 8px 0;
-}
-
-.location-entry-inner {
+.location-entry-row {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  padding: 8px 0;
 }
 
 .location-field {
