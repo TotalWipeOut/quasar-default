@@ -7,6 +7,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/session', component: () => import('pages/SessionPage.vue') },
+      { path: '/formkit-test', component: () => import('pages/FormKitTestPage.vue') },
     ],
   },
 
