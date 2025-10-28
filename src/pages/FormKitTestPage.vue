@@ -41,68 +41,47 @@ const submittedData = ref<unknown>(null as unknown);
 
 const formSchema = [
   {
+    $el: 'h3',
+    children: 'Do you want to include or exclude any locations from this offer?',
+    attrs: {
+      class: 'form-section-title',
+    },
+  },
+  {
+    $formkit: 'list',
     name: 'locations',
-    useFieldsetStatus: true,
     id: 'form-input-qualification-locations',
-    $formkit: 'group',
-    title: 'Do you want to include or exclude any locations from this offer?',
+    dynamic: true,
     children: [
       {
-        name: 'locations',
-        formPath: 'qualification.locations.locations',
-        $formkit: 'list',
-        class: 'q-pa-sm',
-        dynamic: true,
-        addLabel: 'Add',
-        children: [
-          {
-            $formkit: 'group',
-            value: {
-              redemptionPartner: '',
-              includedLocations: '',
-              excludedLocations: '',
-              includedLocationTags: '',
-              excludedLocationTags: '',
-            },
-            children: [
-              {
-                type: 'text',
-                name: 'redemptionPartner',
-                class: 'q-pa-sm el-redemptionPartner',
-                $formkit: 'text',
-                label: 'Redemption Partner',
-              },
-              {
-                type: 'text',
-                name: 'includedLocations',
-                class: 'q-pa-sm el-includedLocations',
-                $formkit: 'text',
-                label: 'Included Locations',
-              },
-              {
-                type: 'text',
-                name: 'excludedLocations',
-                class: 'q-pa-sm el-excludedLocations',
-                $formkit: 'text',
-                label: 'Excluded Locations',
-              },
-              {
-                type: 'text',
-                name: 'includedLocationTags',
-                class: 'q-pa-sm el-includedLocationTags',
-                $formkit: 'text',
-                label: 'Included Location Tags',
-              },
-              {
-                type: 'text',
-                name: 'excludedLocationTags',
-                class: 'q-pa-sm el-excludedLocationTags',
-                $formkit: 'text',
-                label: 'Excluded Location Tags',
-              },
-            ],
-          },
-        ],
+        $formkit: 'text',
+        name: 'redemptionPartner',
+        label: 'Redemption Partner',
+        outerClass: 'q-pa-sm el-redemptionPartner',
+      },
+      {
+        $formkit: 'text',
+        name: 'includedLocations',
+        label: 'Included Locations',
+        outerClass: 'q-pa-sm el-includedLocations',
+      },
+      {
+        $formkit: 'text',
+        name: 'excludedLocations',
+        label: 'Excluded Locations',
+        outerClass: 'q-pa-sm el-excludedLocations',
+      },
+      {
+        $formkit: 'text',
+        name: 'includedLocationTags',
+        label: 'Included Location Tags',
+        outerClass: 'q-pa-sm el-includedLocationTags',
+      },
+      {
+        $formkit: 'text',
+        name: 'excludedLocationTags',
+        label: 'Excluded Location Tags',
+        outerClass: 'q-pa-sm el-excludedLocationTags',
       },
     ],
   },
