@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { FormKitSchemaNode } from '@formkit/vue';
+import type { FormKitSchemaNode } from '@formkit/core';
 
 type LocationEntry = {
   redemptionPartner: string;
